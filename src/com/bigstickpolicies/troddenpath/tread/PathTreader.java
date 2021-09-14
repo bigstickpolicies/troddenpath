@@ -1,10 +1,12 @@
 package com.bigstickpolicies.troddenpath.tread;
 
 import com.bigstickpolicies.troddenpath.TroddenPath;
+import com.bigstickpolicies.troddenpath.TroddenPathConfigurer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -15,7 +17,11 @@ import java.util.Map;
 public class PathTreader {
     TroddenPath plugin;
     private final Map<Material, List<BlockTreadBehavior>> blockBehaviorMap=new HashMap();
-    public PathTreader(TroddenPath plugin, List<World> worlds, List<Class<? extends Entity>> classes, List<BlockTreadBehavior> behaviors) {
+    public PathTreader(TroddenPath plugin, TroddenPathConfigurer config) {
+        var behaviors=config.getBehaviors();
+        var classes=config.getEntityClasses();
+        var worlds=config.getWorlds();
+        var gamemodes=config.getValidGameModes();
         this.plugin=plugin;
         for(var x: behaviors) {
             if(blockBehaviorMap.get(x.from())==null) blockBehaviorMap.put(x.from(),new ArrayList());
@@ -29,7 +35,14 @@ public class PathTreader {
             for(var world:worlds) {
                 world.getEntitiesByClasses(tempclasses).forEach((e) -> {
                     if(e instanceof Player) {
+                        if(!gamemodes.contains(((Player) e).getGameMode())) return;
                         if(((Player) e).isSneaking()) return;
+                    }
+                    if(e instanceof LivingEntity) {
+                        if(config.getLeatherBootsPreventTrampling()) {
+                            var is=((LivingEntity) e).getEquipment().getBoots();
+                            if(is!=null && is.getType()==Material.LEATHER_BOOTS) return;
+                        }
                     }
                     var block=e.getLocation().add(0,-0.46,0).getBlock();
                     var blockBehaviors=blockBehaviorMap.get(block.getType());

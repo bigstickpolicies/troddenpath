@@ -2,6 +2,7 @@ package com.bigstickpolicies.troddenpath;
 
 import com.bigstickpolicies.troddenpath.tread.BlockTreadBehavior;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -15,6 +16,8 @@ public class TroddenPathConfigurer {
     private List<World> worlds=new ArrayList();
     private List<BlockTreadBehavior> behaviors=new ArrayList();
     private List<Class<? extends Entity>> entityClasses=new ArrayList();
+    private List<GameMode> validGameModes=new ArrayList();
+    private boolean leatherBootsPreventTrampling;
     public static final double CHANCE_FACTOR=0.03;
     public TroddenPathConfigurer(FileConfiguration config) {
         init(config);
@@ -42,11 +45,13 @@ public class TroddenPathConfigurer {
                 entityClasses.add(ec);
             }
         });
-        System.out.println(worlds);
-        System.out.println(behaviors);
-        System.out.println(entityClasses);
-
-
+        config.getList("gamemodes").iterator().forEachRemaining((g) -> {
+            if(g instanceof String) {
+                var gm=GameMode.valueOf((String) g);
+                validGameModes.add(gm);
+            }
+        });
+        leatherBootsPreventTrampling=config.getBoolean("leather-boots-prevent-trampling");
     }
 
     public List<World> getWorlds() {
@@ -59,5 +64,9 @@ public class TroddenPathConfigurer {
 
     public List<Class<? extends Entity>> getEntityClasses() {
         return entityClasses;
+    }
+    public List<GameMode> getValidGameModes() {return validGameModes;}
+    public boolean getLeatherBootsPreventTrampling() {
+        return leatherBootsPreventTrampling;
     }
 }

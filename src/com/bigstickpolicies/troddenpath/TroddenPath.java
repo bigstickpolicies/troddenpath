@@ -25,7 +25,7 @@ public class TroddenPath extends JavaPlugin {
 
 
 
-        treader=new PathTreader(this, configurer.getWorlds(),configurer.getEntityClasses(),configurer.getBehaviors());
+        treader=new PathTreader(this, configurer);
 
     }
     @Override
