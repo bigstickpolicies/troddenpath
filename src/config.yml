@@ -1,6 +1,15 @@
+# A list of worlds to form paths in
 worlds: ["world","world_nether","world_the_end"]
+# How fast paths form. Default: 1
 tread-speed: 1
 blocks:
+  #<from-block>:
+  #    <to-block-1>:
+  #        chance: <chance>
+  #    <to-block-2>:
+  #        chance: <relative probability, default: 1>
+
+  #Overworld
   grass_block:
     dirt_path:
       chance: 1
@@ -52,6 +61,7 @@ blocks:
       chance: 0.4
     cobblestone_slab:
       chance: 0.15
+  #Nether
   soul_soil:
     soul_sand:
       chance: 0.8
@@ -61,9 +71,13 @@ blocks:
   crimson_nylium:
     netherrack:
       chance: 0.6
+  #End
   end_stone:
     end_stone_bricks:
       chance: 0.6
     end_stone_brick_slab:
       chance: 0.08
+
+# A list of entity types capable of forming paths
+# Default: ["PLAYER","HORSE"]
 entities: ["PLAYER","HORSE"]
