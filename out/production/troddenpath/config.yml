@@ -1,0 +1,69 @@
+worlds: ["world","world_nether","world_the_end"]
+tread-speed: 1
+blocks:
+  grass_block:
+    dirt_path:
+      chance: 1
+    coarse_dirt:
+      chance: 0.7
+    gravel:
+      chance: 0.2
+    cobblestone_slab:
+      chance: 0.15
+  stone:
+    cobblestone:
+      chance: 0.8
+    mossy_cobblestone:
+      chance: 0.3
+    cobblestone_slab:
+      chance: 0.03
+    mossy_cobblestone_slab:
+      chance: 0.02
+    stone_slab:
+      chance: 0.03
+    coarse_dirt:
+      chance: 0.02
+  sand:
+    sandstone:
+      chance: 0.9
+    grass_block:
+      chance: 0.15
+    rooted_dirt:
+      chance: 0.1
+    coarse_dirt:
+      chance: 0.05
+    sandstone_slab:
+      chance: 0.08
+  granite:
+    polished_granite:
+      chance: 0.2
+  diorite:
+    polished_diorite:
+      chance: 0.2
+  andesite:
+    polished_andesite:
+      chance: 0.2
+  podzol:
+    rooted_dirt:
+      chance: 0.4
+    coarse_dirt:
+      chance: 0.4
+    dirt_path:
+      chance: 0.4
+    cobblestone_slab:
+      chance: 0.15
+  soul_soil:
+    soul_sand:
+      chance: 0.8
+  warped_nylium:
+    netherrack:
+      chance: 0.6
+  crimson_nylium:
+    netherrack:
+      chance: 0.6
+  end_stone:
+    end_stone_bricks:
+      chance: 0.6
+    end_stone_brick_slab:
+      chance: 0.08
+entities: ["PLAYER","HORSE"]
