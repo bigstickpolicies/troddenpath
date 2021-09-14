@@ -5,8 +5,8 @@ worlds: ["world","world_nether","world_the_end"]
 tread-speed: 1
 
 # A list of entity types capable of forming paths
-# Default: ["PLAYER","HORSE"]
-entities: ["PLAYER","HORSE"]
+# Default: ["PLAYER","HORSE","VILLAGER"]
+entities: ["PLAYER","HORSE","VILLAGER"]
 
 #A list of gamemodes where treading is active
 #Default: ["SURVIVAL","ADVENTURE","CREATIVE"]
@@ -15,6 +15,13 @@ gamemodes: ["SURVIVAL","ADVENTURE","CREATIVE"]
 #Whether wearing leather boots prevents treading
 #Default: true
 leather-boots-prevent-trampling: true
+
+#These blocks will not prevent the block underneath them from being trampled
+destroyable-blocks: ["grass","tall_grass","dead-bush","dandelion","poppy","blue_orchid","allium","azure_bluet",
+"red_tulip","orange_tulip","pink_tulip","white_tulip","oxeye_daisy","cornflower","lily_of_the_valley","wither_rose",
+"brown_mushroom","red_mushroom","crimson_fungus","warped_fungus","crimson_roots","warped_roots","nether_sprouts",
+"weeping_vines","vines","oak_fence","spruce_fence","dark_oak_fence","jungle_fence","acacia_fence","birch_fence",
+"crimson_fence","warped_fence","iron_bars","chain","fern","large_fern"]
 
 #All the block conversions.
 #<from-block>:
@@ -47,16 +54,12 @@ blocks:
     coarse_dirt:
       chance: 0.02
   sand:
-    sandstone:
+    dirt:
       chance: 0.9
     grass_block:
-      chance: 0.15
-    rooted_dirt:
-      chance: 0.1
+      chance: 0.4
     coarse_dirt:
       chance: 0.05
-    sandstone_slab:
-      chance: 0.08
   granite:
     polished_granite:
       chance: 0.2

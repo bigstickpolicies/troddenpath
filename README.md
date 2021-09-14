@@ -6,15 +6,15 @@
 
 ![dirt trail](https://i.imgur.com/e8NW1O4.png)
 
-*Off the Trodden Path* lays beautiful trails behind players as they travel off throughout the world.
+*Off the Trodden Path* lays beautiful trails behind players as they travel throughout the world.
 
-![sand trail](https://i.imgur.com/wJbUazF.png)
+![sand trail](https://i.imgur.com/6FqIluT.png)
 
 ![stone trail](https://i.imgur.com/fHdGWZ2.png)
 
 ### No more writing down coordinates
 
-Finding lots of beautiful landmarks you don't want to lose? Lay a few trails, plop some signs down at intersections, and voila - a makeshift park!
+Finding lots of beautiful landmarks you don't want to lose? Lay a few trails, plop some signs down at intersections, and voila - a park!
 
 ### Watch your connections grow
 

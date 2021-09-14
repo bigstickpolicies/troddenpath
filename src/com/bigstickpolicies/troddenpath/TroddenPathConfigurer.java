@@ -1,10 +1,7 @@
 package com.bigstickpolicies.troddenpath;
 
 import com.bigstickpolicies.troddenpath.tread.BlockTreadBehavior;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -17,6 +14,7 @@ public class TroddenPathConfigurer {
     private List<BlockTreadBehavior> behaviors=new ArrayList();
     private List<Class<? extends Entity>> entityClasses=new ArrayList();
     private List<GameMode> validGameModes=new ArrayList();
+    private List<Material> destroyableMaterials=new ArrayList();
     private boolean leatherBootsPreventTrampling;
     public static final double CHANCE_FACTOR=0.03;
     public TroddenPathConfigurer(FileConfiguration config) {
@@ -51,6 +49,16 @@ public class TroddenPathConfigurer {
                 validGameModes.add(gm);
             }
         });
+        config.getList("destroyable-blocks").iterator().forEachRemaining((g) -> {
+            if(g instanceof String) {
+                var m=Material.matchMaterial((String) g);
+                if(m==null) {
+                    System.out.println(ChatColor.RED+"Error: Not a valid block type "+g);
+                    return;
+                }
+                destroyableMaterials.add(m);
+            }
+        });
         leatherBootsPreventTrampling=config.getBoolean("leather-boots-prevent-trampling");
     }
 
@@ -68,5 +76,8 @@ public class TroddenPathConfigurer {
     public List<GameMode> getValidGameModes() {return validGameModes;}
     public boolean getLeatherBootsPreventTrampling() {
         return leatherBootsPreventTrampling;
+    }
+    public List<Material> getDestroyableMaterials() {
+        return destroyableMaterials;
     }
 }
