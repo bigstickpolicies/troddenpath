@@ -18,7 +18,8 @@ public class PathTreader {
     private boolean isDestroyable(Material m) {
         return destroyableMaterials.contains(m);
     }
-    public PathTreader(TroddenPath plugin, TroddenPathConfigurer config) {
+    public PathTreader(TroddenPath plugin) {
+        var config=TroddenPath.globalConfigs;
         var behaviors=config.getBehaviors();
         var classes=config.getEntityClasses();
         var worlds=config.getWorlds();
@@ -48,22 +49,15 @@ public class PathTreader {
             for(var world:worlds) {
                 world.getEntitiesByClasses(tempclasses).forEach((e) -> {
                     if(e instanceof Player) {
-                        if(!gamemodes.contains(((Player) e).getGameMode())) return;
-                        if(((Player) e).isSneaking()) return;
-                    }
-                    if(e instanceof LivingEntity) {
-                        if(config.getLeatherBootsPreventTrampling()) {
-                            var is=((LivingEntity) e).getEquipment().getBoots();
-                            if(is!=null && is.getType()==Material.LEATHER_BOOTS) return;
-                        }
+                        if (!gamemodes.contains(((Player) e).getGameMode())) return;
+                        if (((Player) e).isSneaking()) return;
                     }
                     var block=e.getLocation().add(0,-0.46,0).getBlock();
                     if(!isDestroyable(block.getLocation().add(0,1,0).getBlock().getType())) return;
                     var blockBehaviors=blockBehaviorMap.get(block.getType());
                     if(blockBehaviors==null) return;
                     for(var blockBehavior:blockBehaviors) {
-                        if(Math.random()>blockBehavior.chance()) continue;
-                        block.setType(blockBehavior.to());
+                        blockBehavior.tread(block,e);
                     }
 
 
