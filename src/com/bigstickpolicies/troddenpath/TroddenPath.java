@@ -18,7 +18,7 @@ public class TroddenPath extends JavaPlugin {
     public static TroddenPathConfigurer globalConfigs;
     @Override
     public void onEnable() {
-        Bukkit.getLogger().log(Level.INFO, ChatColor.GREEN+"Starting TroddenPath"+ VERSION);
+        Bukkit.getLogger().log(Level.INFO, ChatColor.YELLOW+"Starting TroddenPath"+ VERSION);
         this.saveDefaultConfig();
         globalConfigs=new TroddenPathConfigurer(this.getConfig());
         //redo
@@ -28,6 +28,6 @@ public class TroddenPath extends JavaPlugin {
     }
     @Override
     public void onDisable() {
-        Bukkit.getLogger().log(Level.INFO,ChatColor.GREEN+"Stopping TroddenPath"+VERSION);
+        Bukkit.getLogger().log(Level.INFO,ChatColor.YELLOW+"Stopping TroddenPath"+VERSION);
     }
 }

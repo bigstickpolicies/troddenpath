@@ -10,6 +10,8 @@
 
 ![sand trail](https://i.imgur.com/6FqIluT.png)
 
+These trails (using default settings) form after walking the same path multiple times. The more a path is used, the larger it gets. 
+
 ![stone trail](https://i.imgur.com/fHdGWZ2.png)
 
 ### No more writing down coordinates
@@ -18,7 +20,7 @@ Finding lots of beautiful landmarks you don't want to lose? Lay a few trails, pl
 
 ### Watch your connections grow
 
-As players travel between frequented locations, a web of paths naturally forms based on movement patterns. 
+As players travel between frequented locations, a web of paths naturally forms based on their movement patterns. 
 
 ![meandering trails](https://i.imgur.com/0LzM5d3.png)
 

@@ -17,10 +17,10 @@ gamemodes: ["SURVIVAL","ADVENTURE","CREATIVE"]
 leather-boots-prevent-trampling: true
 
 #These blocks will not prevent the block underneath them from being trampled
-destroyable-blocks: ["grass","tall_grass","dead-bush","dandelion","poppy","blue_orchid","allium","azure_bluet",
+destroyable-blocks: ["grass","tall_grass","dead_bush","dandelion","poppy","blue_orchid","allium","azure_bluet",
 "red_tulip","orange_tulip","pink_tulip","white_tulip","oxeye_daisy","cornflower","lily_of_the_valley","wither_rose",
 "brown_mushroom","red_mushroom","crimson_fungus","warped_fungus","crimson_roots","warped_roots","nether_sprouts",
-"weeping_vines","vines","oak_fence","spruce_fence","dark_oak_fence","jungle_fence","acacia_fence","birch_fence",
+"weeping_vines","vine","oak_fence","spruce_fence","dark_oak_fence","jungle_fence","acacia_fence","birch_fence",
 "crimson_fence","warped_fence","iron_bars","chain","fern","large_fern"]
 
 #All the block conversions.
