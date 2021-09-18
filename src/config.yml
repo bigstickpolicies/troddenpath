@@ -18,10 +18,10 @@ leather-boots-prevent-trampling: true
 
 #These blocks will not prevent the block underneath them from being trampled
 destroyable-blocks: ["grass","tall_grass","dead_bush","dandelion","poppy","blue_orchid","allium","azure_bluet",
-"red_tulip","orange_tulip","pink_tulip","white_tulip","oxeye_daisy","cornflower","lily_of_the_valley","wither_rose",
-"brown_mushroom","red_mushroom","crimson_fungus","warped_fungus","crimson_roots","warped_roots","nether_sprouts",
-"weeping_vines","vine","oak_fence","spruce_fence","dark_oak_fence","jungle_fence","acacia_fence","birch_fence",
-"crimson_fence","warped_fence","iron_bars","chain","fern","large_fern"]
+                     "red_tulip","orange_tulip","pink_tulip","white_tulip","oxeye_daisy","cornflower","lily_of_the_valley","wither_rose",
+                     "brown_mushroom","red_mushroom","crimson_fungus","warped_fungus","crimson_roots","warped_roots","nether_sprouts",
+                     "weeping_vines","vine","oak_fence","spruce_fence","dark_oak_fence","jungle_fence","acacia_fence","birch_fence",
+                     "crimson_fence","warped_fence","iron_bars","chain","fern","large_fern"]
 
 #Whether the custom boot crafts are enabled
 crafts:
@@ -29,72 +29,121 @@ crafts:
     enabled: true
   scorchers:
     enabled: true
+  titan_boots:
+    enabled: true
 
 
-#All the block conversions.
-#<from-block>:
-#    <to-block-1>:
-#        chance: <chance>
-#    <to-block-2>:
-#        chance: <relative probability, default: 1>
-blocks:
-  #Overworld
-  grass_block:
-    dirt_path:
-      chance: 1
-    coarse_dirt:
-      chance: 0.7
-    gravel:
-      chance: 0.2
-    cobblestone_slab:
-      chance: 0.15
-  stone:
-    cobblestone:
-      chance: 0.8
-    mossy_cobblestone:
-      chance: 0.3
-    cobblestone_slab:
-      chance: 0.03
-    mossy_cobblestone_slab:
-      chance: 0.02
-    stone_slab:
-      chance: 0.03
-    coarse_dirt:
-      chance: 0.02
-  sand:
-    dirt:
-      chance: 0.9
+#All the treading behaviors.
+#<type>
+#    <from-block>:
+#        <to-block-1>:
+#            chance: <chance>
+#        <to-block-2>:
+#            chance: <relative probability, default: 1>
+tread-behaviors:
+  base:
     grass_block:
-      chance: 0.4
-    coarse_dirt:
-      chance: 0.05
-  granite:
-    polished_granite:
-      chance: 0.2
-  diorite:
-    polished_diorite:
-      chance: 0.2
-  andesite:
-    polished_andesite:
-      chance: 0.2
-  podzol:
-    rooted_dirt:
-      chance: 0.4
-    coarse_dirt:
-      chance: 0.4
-    dirt_path:
-      chance: 0.4
-    cobblestone_slab:
-      chance: 0.15
-  warped_nylium:
+      dirt_path:
+        chance: 1
+      coarse_dirt:
+        chance: 0.7
+      gravel:
+        chance: 0.2
+      cobblestone_slab:
+        chance: 0.15
+      stone:
+        cobblestone:
+          chance: 0.8
+        mossy_cobblestone:
+          chance: 0.3
+        cobblestone_slab:
+          chance: 0.03
+        mossy_cobblestone_slab:
+          chance: 0.02
+        stone_slab:
+          chance: 0.03
+        coarse_dirt:
+          chance: 0.02
+      sand:
+        dirt:
+          chance: 0.9
+        grass_block:
+          chance: 0.4
+        coarse_dirt:
+          chance: 0.05
+      granite:
+        polished_granite:
+          chance: 0.2
+      diorite:
+        polished_diorite:
+          chance: 0.2
+      andesite:
+        polished_andesite:
+          chance: 0.2
+      podzol:
+        rooted_dirt:
+          chance: 0.4
+        coarse_dirt:
+          chance: 0.4
+        dirt_path:
+          chance: 0.4
+        cobblestone_slab:
+          chance: 0.15
+      #End
+      end_stone:
+        end_stone_bricks:
+          chance: 0.6
+        end_stone_brick_slab:
+          chance: 0.08
+  scorchers:
     netherrack:
-      chance: 0.6
-  crimson_nylium:
-    netherrack:
-      chance: 0.6
-  #End
-  end_stone:
-    end_stone_bricks:
-      chance: 0.6
-    end_stone_brick_slab:
-      chance: 0.08
+      nether_bricks:
+        chance: 1
+      nether_brick_slab:
+        chance: 0.2;
+    warped_nylium:
+      netherrack:
+        chnace: 1;
+    crimson_nylium:
+      netherrack:
+        chance: 1
+    soul_sand:
+      basalt:
+        chance: 1
+      smooth_basalt:
+        chance: 0.6
+      polished_basalt:
+        chance: 0.2
+    soul_soil:
+      basalt:
+        chance: 1
+      smooth_basalt:
+        chance: 0.6
+      polished_basalt:
+        chance: 0.2
+  titan_boots:
+    end_stone:
+      end_stone_bricks:
+        chance: 1
+      end_stone_brick_slab:
+        chance: 0.2
+    stone:
+      stone_bricks:
+        chance: 1
+      stone_brick_slab:
+        chance: 0.1
+      cracked_stone_bricks:
+        chance: 0.2
+      mossy_stone_bricks:
+        chance: 0.2
+      chiseled_stone_bricks:
+        chance: 0.1
+      cobblestone:
+        chance: 0.1
+      mossy_cobblestone:
+        chance: 0.1
+    blackstone:
+      polished_blackstone:
+        chance: 0.5
+      polished_blackstone_bricks:
+        chance: 0.5

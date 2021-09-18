@@ -14,7 +14,8 @@ import java.util.Map;
 public class BootsRegistry {
     private Map<String, BootsEffectHook> nameMap=new HashMap();
     public BootsRegistry() {
-        nameMap.put(null,(block,data,effector) -> {
+        nameMap.put(null,(block,effector) -> {
+            var data=TroddenPath.globalConfigs.getTreadBehavior("base").get(block.getType());
             if(!TroddenPath.globalConfigs.isDestroyable(block.getLocation().add(0,1,0).getBlock().getType())) return;
             for(var part:data) {
                 if(Math.random()>part.chance()) continue;

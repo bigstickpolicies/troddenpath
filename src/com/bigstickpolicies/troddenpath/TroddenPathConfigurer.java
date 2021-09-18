@@ -1,27 +1,40 @@
 package com.bigstickpolicies.troddenpath;
 
 import com.bigstickpolicies.troddenpath.tread.BlockTreadBehavior;
+import com.bigstickpolicies.troddenpath.tread.BlockTreadSheet;
 import org.bukkit.*;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class TroddenPathConfigurer {
     private List<World> worlds=new ArrayList();
-    private List<BlockTreadBehavior> behaviors=new ArrayList();
+    private Map<String,BlockTreadSheet> treadBehaviors =new HashMap();
     private List<Class<? extends Entity>> entityClasses=new ArrayList();
     private List<GameMode> validGameModes=new ArrayList();
     private Set<Material> destroyableMaterials=new HashSet();
     private Set<String> enabledBoots=new HashSet();
+    private final String[] behaviorTypes=new String[]{"base","scorchers","titan_boots"};
     private boolean leatherBootsPreventTrampling;
     public static final double CHANCE_FACTOR=0.03;
+    public static double factor;
     public TroddenPathConfigurer(FileConfiguration config) {
         init(config);
+    }
+    public BlockTreadSheet parseBehaviors(ConfigurationSection config) {
+        var sheet=new BlockTreadSheet();
+        config.getKeys(false).forEach((key) -> {
+
+            var subsection=config.getConfigurationSection(key);
+            subsection.getKeys(false).forEach((k2)-> {
+                var cpt=subsection.getDouble(k2+".chance")*factor;
+                sheet.add(Material.matchMaterial(key),new BlockTreadBehavior(Material.matchMaterial(k2),cpt));
+            });
+        });
+        return sheet;
     }
     public void init(FileConfiguration config) {
         config.getList("worlds").iterator().forEachRemaining((x) -> {
@@ -29,17 +42,12 @@ public class TroddenPathConfigurer {
                 worlds.add(Bukkit.getWorld((String) x));
             }
         });
-        var factor=config.getDouble("tread-speed")*CHANCE_FACTOR;
-        config.getConfigurationSection("blocks").getKeys(false).forEach((key) -> {
+        factor=config.getDouble("tread-speed")*CHANCE_FACTOR;
 
-            var subsection=config.getConfigurationSection("blocks."+key);
-            subsection.getKeys(false).forEach((k2)-> {
-                var cpt=subsection.getDouble(k2+".chance")*factor;
-                behaviors.add(new BlockTreadBehavior(Material.matchMaterial(key),
-                        Material.matchMaterial(k2),
-                        cpt));
-            });
-        });
+        for(var s:behaviorTypes) {
+            treadBehaviors.put(s,parseBehaviors(config.getConfigurationSection("tread-behaviors."+s)));
+        }
+        System.out.println(treadBehaviors);
         config.getList("entities").iterator().forEachRemaining((s) -> {
             if(s instanceof String) {
                 var ec=EntityType.valueOf((String) s).getEntityClass();
@@ -81,8 +89,8 @@ public class TroddenPathConfigurer {
         return worlds;
     }
 
-    public List<BlockTreadBehavior> getBehaviors() {
-        return behaviors;
+    public BlockTreadSheet getTreadBehavior(String s) {
+        return treadBehaviors.get(s);
     }
 
     public List<Class<? extends Entity>> getEntityClasses() {

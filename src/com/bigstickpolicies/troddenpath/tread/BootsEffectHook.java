@@ -6,5 +6,5 @@ import org.bukkit.entity.Entity;
 import java.util.List;
 
 public interface BootsEffectHook {
-    void change(Block block, List<BlockTreadBehavior> data, Entity effector);
+    void change(Block block, Entity effector);
 }

@@ -31,12 +31,13 @@ public class ItemInitializer {
     }
     public void create() {
         register(new ItemBuilder(Material.LEATHER_BOOTS).build(),
-                (block,data,effector) -> {
+                (block,effector) -> {
                     return;
                 });
         var tramplers=new ItemBuilder(Material.CHAINMAIL_BOOTS)
                 .name("Tramplers").lore(ChatColor.AQUA+"+150% Trample Speed").build();
-        register(tramplers,(block,data,effector) -> {
+        register(tramplers,(block,effector) -> {
+            var data=TroddenPath.globalConfigs.getTreadBehavior("base").get(block.getType());
             if(!TroddenPath.globalConfigs.isDestroyable(block.getLocation().add(0,1,0).getBlock().getType())) return;
             for(var part:data) {
                 if(Math.random()>part.chance()*(2.5)) continue;
@@ -55,63 +56,32 @@ public class ItemInitializer {
                 .loreSplitLines("Leaves trails on netherrack, nylium, and soul sand").name(ChatColor.RED+"Scorchers")
                         .ench(Enchantment.FIRE_ASPECT,1).build();
 
-        register(scorchers,(block,data,effector) -> {
+        register(scorchers,(block,effector) -> {
             if(!TroddenPath.globalConfigs.isDestroyable(block.getLocation().add(0,1,0).getBlock().getType())) return;
-            if(block.getType()==Material.NETHERRACK) {
-                if(Math.random()<1.0/(20*1)) {
-                    block.setType(Material.NETHER_BRICKS);
-                    block.getLocation().getWorld().playSound(block.getLocation(), Sound.ITEM_FIRECHARGE_USE,0.2f,1.0f);
-                    block.getLocation().getWorld().spawnParticle(Particle.LAVA,block.getLocation(),10);
-                    return;
-                }
-                if(Math.random()<1.0/(20*3)) {
-                    block.setType(Material.NETHER_BRICK_SLAB);
-                    block.getLocation().getWorld().playSound(block.getLocation(), Sound.ITEM_FIRECHARGE_USE,0.2f,1.0f);
-                    block.getLocation().getWorld().spawnParticle(Particle.LAVA,block.getLocation(),10);
-                    return;
-                }
-            }
-            if(block.getType()==Material.SOUL_SAND||block.getType()==Material.SOUL_SOIL) {
-                Material set=null;
-                if(Math.random()<1.0/(20*1)) {
-                    set=Material.BASALT;
-                }
-                if(Math.random()<1.0/(20*2)) {
-                    set=Material.POLISHED_BASALT;
-                }
-                if(Math.random()<1.0/(20*2)) {
-                    set=Material.SMOOTH_BASALT;
-                }
-                if(set!=null) {
-                    block.getLocation().getWorld().playSound(block.getLocation(), Sound.ITEM_FIRECHARGE_USE,0.2f,1.0f);
-                    block.getLocation().getWorld().spawnParticle(Particle.LAVA,block.getLocation(),10);
-                    Material finalSet = set;
-                    if(block.getType()==Material.SOUL_SAND) {
-                        Bukkit.getScheduler().scheduleSyncDelayedTask(TroddenPath.plugin,() -> {
-                            effector.setVelocity(effector.getVelocity().add(new Vector(0.0,0.2,0.0)));
-                        },3);
+            var scorchBehavior=TroddenPath.globalConfigs.getTreadBehavior("scorchers").get(block.getType());
+            for(var beh:scorchBehavior) {
+                if(Math.random()<beh.chance()) {
 
+                    if(block.getType()==Material.SOUL_SAND) {
+                        Bukkit.getScheduler().scheduleSyncDelayedTask((TroddenPath.plugin),() -> {
+                            effector.setVelocity(effector.getVelocity().add(new Vector(0,0.2,0)));
+                        },3);
                     }
                     Bukkit.getScheduler().scheduleSyncDelayedTask(TroddenPath.plugin,() -> {
-                        block.setType(finalSet);
+                        block.setType(beh.to());
+                        block.getLocation().getWorld().playSound(block.getLocation(), Sound.ITEM_FIRECHARGE_USE,0.2f,1.0f);
+                        block.getLocation().getWorld().spawnParticle(Particle.LAVA,block.getLocation(),10);
                     },4);
                     return;
                 }
             }
-            if(block.getType()==Material.CRIMSON_NYLIUM || block.getType()==Material.WARPED_NYLIUM) {
-                if(Math.random()<1.0/(20*1)) {
-                    block.setType(Material.NETHERRACK);
-                    block.getLocation().getWorld().playSound(block.getLocation(), Sound.ITEM_FIRECHARGE_USE,0.2f,1.0f);
-                    block.getLocation().getWorld().spawnParticle(Particle.LAVA,block.getLocation(),10);
+            var baseBehavior=TroddenPath.globalConfigs.getTreadBehavior("base").get(block.getType());
+            for(var beh:baseBehavior) {
+                if (Math.random() < beh.chance()) {
+                    block.setType(beh.to());
+                    block.getLocation().getWorld().spawnParticle(Particle.LAVA, block.getLocation(), 10);
                     return;
                 }
-
-            }
-            for(var part:data) {
-                if(Math.random()>part.chance()) continue;
-                block.setType(part.to());
-                block.getLocation().getWorld().spawnParticle(Particle.LAVA,block.getLocation(),10);
-                return;
             }
         });
 
@@ -119,6 +89,25 @@ public class ItemInitializer {
 
         recipe.setIngredient('C',Material.FIRE_CHARGE);
         recipe.setIngredient('B',Material.NETHERITE_BOOTS);
+        finishRecipe();
+
+        var titans=new ItemBuilder(Material.DIAMOND_BOOTS).chatcolor(ChatColor.BLUE+"")
+                .loreSplitLines("Very heavy boots that can compress stone.").name(ChatColor.AQUA+"Titan Boots")
+                .ench(Enchantment.PROTECTION_ENVIRONMENTAL,5)
+                .ench(Enchantment.DURABILITY,4).build();
+        register(titans,(block,effector) -> {
+            var behaviors=TroddenPath.globalConfigs.getTreadBehavior("titan_boots").get(block.getType());
+            for(var beh: behaviors) {
+                if(Math.random()<beh.chance()) {
+                    block.setType(beh.to());
+                    block.getLocation().getWorld().playSound(block.getLocation(),Sound.BLOCK_STONE_BREAK,1.0f,1.0f);
+
+                    block.getLocation().getWorld().spawnParticle(Particle.CRIT,block.getLocation(),10);
+                }
+            }
+        });
+        newRecipe("titan_boots",titans,"A A","A A");
+        recipe.setIngredient('A',Material.DIAMOND_BLOCK);
         finishRecipe();
 
 
