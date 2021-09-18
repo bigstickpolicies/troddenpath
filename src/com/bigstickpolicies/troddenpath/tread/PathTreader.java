@@ -14,10 +14,7 @@ import java.util.*;
 public class PathTreader {
     TroddenPath plugin;
     private final Map<Material, List<BlockTreadBehavior>> blockBehaviorMap=new HashMap();
-    private final Set<Material> destroyableMaterials=new HashSet();
-    private boolean isDestroyable(Material m) {
-        return destroyableMaterials.contains(m);
-    }
+
     public PathTreader(TroddenPath plugin) {
         var config=TroddenPath.globalConfigs;
         var behaviors=config.getBehaviors();
@@ -25,12 +22,7 @@ public class PathTreader {
         var worlds=config.getWorlds();
         var gamemodes=config.getValidGameModes();
 
-        for(var m:config.getDestroyableMaterials()) {
-            destroyableMaterials.add(m);
-        }
-        destroyableMaterials.add(Material.AIR);
-        destroyableMaterials.add(Material.CAVE_AIR);
-        destroyableMaterials.add(Material.VOID_AIR);
+
 
         this.plugin=plugin;
 
@@ -53,14 +45,14 @@ public class PathTreader {
                         if (((Player) e).isSneaking()) return;
                     }
                     var block=e.getLocation().add(0,-0.46,0).getBlock();
-                    if(!isDestroyable(block.getLocation().add(0,1,0).getBlock().getType())) return;
                     var blockBehaviors=blockBehaviorMap.get(block.getType());
-                    if(blockBehaviors==null) return;
-                    for(var blockBehavior:blockBehaviors) {
-                        blockBehavior.tread(block,e);
+                    if(blockBehaviors==null) blockBehaviors=new ArrayList();
+
+                    BootsEffectHook currentEffect=TroddenPath.bootsRegistry.getDefault();
+                    if(e instanceof LivingEntity) {
+                        currentEffect=TroddenPath.bootsRegistry.get(((LivingEntity) e).getEquipment().getBoots());
                     }
-
-
+                    currentEffect.change(block,blockBehaviors,e);
                 });
             }
         },0,1);

@@ -16,10 +16,6 @@ These trails (using default settings) form after walking the same path multiple 
 
 ### No more writing down coordinates
 
-Finding lots of beautiful landmarks you don't want to lose? Lay a few trails, plop some signs down at intersections, and voila - a park!
-
-### Watch your connections grow
-
 As players travel between frequented locations, a web of paths naturally forms based on their movement patterns. 
 
 ![meandering trails](https://i.imgur.com/0LzM5d3.png)
@@ -34,6 +30,8 @@ No need to manually detail the ground! Simply play around your base for long eno
 * Vanilla friendly - does not interfere with game mechanics or progression
 * Leave tracks on grass, sand, stone, soul soil, nylium, and end stone
 * Wear leather boots to avoid trampling delicate areas
+* Craft Tramplers - special boots that form paths much quicker
+* Craft Scorchers - boots that allow you to easily form paths over netherrack
 * Fully configurable and customizable
 
 ![house1](https://i.imgur.com/R0Lio6V.png)

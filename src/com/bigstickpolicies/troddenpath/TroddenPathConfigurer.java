@@ -7,14 +7,17 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TroddenPathConfigurer {
     private List<World> worlds=new ArrayList();
     private List<BlockTreadBehavior> behaviors=new ArrayList();
     private List<Class<? extends Entity>> entityClasses=new ArrayList();
     private List<GameMode> validGameModes=new ArrayList();
-    private List<Material> destroyableMaterials=new ArrayList();
+    private Set<Material> destroyableMaterials=new HashSet();
+    private Set<String> enabledBoots=new HashSet();
     private boolean leatherBootsPreventTrampling;
     public static final double CHANCE_FACTOR=0.03;
     public TroddenPathConfigurer(FileConfiguration config) {
@@ -59,7 +62,19 @@ public class TroddenPathConfigurer {
                 destroyableMaterials.add(m);
             }
         });
+
+
+        destroyableMaterials.add(Material.AIR);
+        destroyableMaterials.add(Material.CAVE_AIR);
+        destroyableMaterials.add(Material.VOID_AIR);
         leatherBootsPreventTrampling=config.getBoolean("leather-boots-prevent-trampling");
+
+        config.getConfigurationSection("crafts").getKeys(false).forEach((s) -> {
+            var sec=config.getConfigurationSection("crafts."+s);
+            if(sec.getBoolean("enabled")) {
+                enabledBoots.add(s);
+            };
+        });
     }
 
     public List<World> getWorlds() {
@@ -77,7 +92,12 @@ public class TroddenPathConfigurer {
     public boolean getLeatherBootsPreventTrampling() {
         return leatherBootsPreventTrampling;
     }
-    public List<Material> getDestroyableMaterials() {
-        return destroyableMaterials;
+
+    public boolean isDestroyable(Material m) {
+        return destroyableMaterials.contains(m);
+    }
+
+    public boolean getCraftEnabled(String s) {
+        return enabledBoots.contains(s);
     }
 }
