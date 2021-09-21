@@ -8,14 +8,14 @@ import java.util.List;
 import java.util.Map;
 
 public class BlockTreadSheet {
-    Map<Material, List<BlockTreadBehavior>> treadMap=new HashMap();
+    Map<Material, List<BlockEffect>> treadMap=new HashMap();
     public BlockTreadSheet() {
     }
-    public void add(Material m,BlockTreadBehavior data) {
+    public void add(Material m, BlockEffect data) {
         if(treadMap.get(m)==null) treadMap.put(m,new ArrayList());
         treadMap.get(m).add(data);
     }
-    public List<BlockTreadBehavior> get(Material m) {
+    public List<BlockEffect> get(Material m) {
         if(treadMap.get(m)==null) return new ArrayList();
         return treadMap.get(m);
     }

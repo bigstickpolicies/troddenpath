@@ -7,5 +7,5 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
 
-public record BlockTreadBehavior(@NotNull Material to, @NotNull double chance) {
+public record BlockEffect(@NotNull Material to, @NotNull double chance) {
 }

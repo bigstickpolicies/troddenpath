@@ -1,6 +1,6 @@
 package com.bigstickpolicies.troddenpath;
 
-import com.bigstickpolicies.troddenpath.tread.BlockTreadBehavior;
+import com.bigstickpolicies.troddenpath.tread.BlockEffect;
 import com.bigstickpolicies.troddenpath.tread.BlockTreadSheet;
 import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
@@ -17,7 +17,7 @@ public class TroddenPathConfigurer {
     private List<GameMode> validGameModes=new ArrayList();
     private Set<Material> destroyableMaterials=new HashSet();
     private Set<String> enabledBoots=new HashSet();
-    private final String[] behaviorTypes=new String[]{"base","scorchers","titan_boots"};
+    private final String[] behaviorTypes=new String[]{"base","scorchers","titan_boots","seedlayers"};
     private boolean leatherBootsPreventTrampling;
     public static final double CHANCE_FACTOR=0.03;
     public static double factor;
@@ -31,7 +31,7 @@ public class TroddenPathConfigurer {
             var subsection=config.getConfigurationSection(key);
             subsection.getKeys(false).forEach((k2)-> {
                 var cpt=subsection.getDouble(k2+".chance")*factor;
-                sheet.add(Material.matchMaterial(key),new BlockTreadBehavior(Material.matchMaterial(k2),cpt));
+                sheet.add(Material.matchMaterial(key),new BlockEffect(Material.matchMaterial(k2),cpt));
             });
         });
         return sheet;
