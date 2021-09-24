@@ -152,10 +152,10 @@ tread-behaviors:
   seedlayers:
     grass_block:
       farmland:
-        chance: 2
+        chance: 100
     dirt:
       farmland:
-        chance: 2
+        chance: 100
     coarse_dirt:
       farmland:
-        chance: 0.5
+        chance: 1

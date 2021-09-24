@@ -67,7 +67,7 @@ public class ItemInitializer {
         finishRecipe();
 
         var seedlayers=new LeatherArmorBuilder(Material.LEATHER_BOOTS).color(Color.YELLOW).
-                name(ChatColor.GOLD+"Seedlayer Boots").chatcolor(ChatColor.BLUE+"")
+                name(ChatColor.GOLD+"Seedlayer Boots").chatcolor(ChatColor.GRAY+"")
                 .loreSplitLines("A nifty marvel that automatically lays seeds").build();
 
         register(seedlayers,bootfuncs::seedlayers);

@@ -28,6 +28,8 @@ public class BootFunctions {
         seeds.put(Material.CARROT,Material.CARROTS);
         seeds.put(Material.MELON_SEEDS,Material.MELON_STEM);
         seeds.put(Material.PUMPKIN_SEEDS,Material.PUMPKIN_STEM);
+        seeds.put(Material.POTATO,Material.POTATOES);
+        seeds.put(Material.BEETROOT_SEEDS,Material.BEETROOTS);
     }
     public static BootFunctions get() {
         if(singleton==null) {
@@ -41,7 +43,7 @@ public class BootFunctions {
         for(var part:data) {
             if(Math.random()>part.chance()) continue;
             block.setType(part.to());
-            return;
+            continue;
         }
     }
     public void tramplers(Block block, Entity effector) {
@@ -50,7 +52,7 @@ public class BootFunctions {
         for(var part:data) {
             if(Math.random()>part.chance()*(2.5)) continue;
             block.setType(part.to());
-            return;
+            continue;
         }
     }
     public void scorchers(Block block,Entity effector) {
@@ -69,7 +71,7 @@ public class BootFunctions {
                     block.getLocation().getWorld().playSound(block.getLocation(), Sound.ITEM_FIRECHARGE_USE,0.2f,1.0f);
                     block.getLocation().getWorld().spawnParticle(Particle.LAVA,block.getLocation(),10);
                 },4);
-                return;
+                continue;
             }
         }
         var baseBehavior=TroddenPath.globalConfigs.getTreadBehavior("base").get(block.getType());
@@ -77,7 +79,7 @@ public class BootFunctions {
             if (Math.random() < beh.chance()) {
                 block.setType(beh.to());
                 block.getLocation().getWorld().spawnParticle(Particle.LAVA, block.getLocation(), 10);
-                return;
+                continue;
             }
         }
     }
@@ -96,7 +98,7 @@ public class BootFunctions {
         for(var beh:baseBehavior) {
             if (Math.random() < beh.chance()) {
                 block.setType(beh.to());
-                return;
+                continue;
             }
         }
     }

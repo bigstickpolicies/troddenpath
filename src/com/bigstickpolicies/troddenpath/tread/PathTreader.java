@@ -2,11 +2,10 @@ package com.bigstickpolicies.troddenpath.tread;
 
 import com.bigstickpolicies.troddenpath.TroddenPath;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.logging.Level;
 
 public class PathTreader {
     TroddenPath plugin;
@@ -14,7 +13,7 @@ public class PathTreader {
     public PathTreader(TroddenPath plugin) {
         var config=TroddenPath.globalConfigs;
         var classes=config.getEntityClasses();
-        var worlds=config.getWorlds();
+        var worlds=config.getWorldNames();
         var gamemodes=config.getValidGameModes();
 
 
@@ -30,7 +29,11 @@ public class PathTreader {
         }
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin,() -> {
-            for(var world:worlds) {
+            for(var worldname:worlds) {
+                var world=Bukkit.getWorld(worldname);
+                if(world==null) {
+                    continue;
+                }
                 world.getEntitiesByClasses(tempclasses).forEach((e) -> {
                     if(e instanceof Player) {
                         if (!gamemodes.contains(((Player) e).getGameMode())) return;

@@ -31,6 +31,8 @@ crafts:
     enabled: true
   titan_boots:
     enabled: true
+  seedlayers:
+    enabled: true
 
 
 #All the treading behaviors.
@@ -147,3 +149,13 @@ tread-behaviors:
         chance: 0.5
       polished_blackstone_bricks:
         chance: 0.5
+  seedlayers:
+    grass_block:
+      farmland:
+        chance: 100
+    dirt:
+      farmland:
+        chance: 100
+    coarse_dirt:
+      farmland:
+        chance: 1

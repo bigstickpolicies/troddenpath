@@ -11,7 +11,7 @@ import org.bukkit.entity.EntityType;
 import java.util.*;
 
 public class TroddenPathConfigurer {
-    private List<World> worlds=new ArrayList();
+    private Set<String> worlds=new HashSet();
     private Map<String,BlockTreadSheet> treadBehaviors =new HashMap();
     private List<Class<? extends Entity>> entityClasses=new ArrayList();
     private List<GameMode> validGameModes=new ArrayList();
@@ -39,7 +39,7 @@ public class TroddenPathConfigurer {
     public void init(FileConfiguration config) {
         config.getList("worlds").iterator().forEachRemaining((x) -> {
             if(x instanceof String) {
-                worlds.add(Bukkit.getWorld((String) x));
+                worlds.add((String) x);
             }
         });
         factor=config.getDouble("tread-speed")*CHANCE_FACTOR;
@@ -85,7 +85,7 @@ public class TroddenPathConfigurer {
         });
     }
 
-    public List<World> getWorlds() {
+    public Set<String> getWorldNames() {
         return worlds;
     }
 
